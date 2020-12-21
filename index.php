@@ -1,28 +1,30 @@
-
-
+<?php
+include_once"./premios.php";
+?>
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head runat='server'>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
     <title>La ruleta de la muerte</title>
-    <script src="js/Winwheel.min.js"></script>
+    <script src='js/Winwheel.min.js'></script>
 
-<script src="./js/TweenMax.min.js"></script>
-<script src="./js/jquery-3.2.1.slim.min.js"></script>
-    <link rel="stylesheet" href="./css/bootstrap.min.css"/>
-    <script src="./js/sweetalert.min.js"></script>
-    <link href="./css/sweetalert.css" rel="stylesheet" />
+<script src='./js/TweenMax.min.js'></script>
+<script src='./js/jquery-3.2.1.slim.min.js'></script>
+    <link rel='stylesheet' href='./css/bootstrap.min.css'/>
+    <script src='./js/sweetalert.min.js'></script>
+    <link href='./css/sweetalert.css' rel='stylesheet' />
     
-  <meta property="og:url"               content="./" />
-<meta property="og:type"               content="article" />
-<meta property="og:title"              content="La ruleta (Rifa cosas)" />
-<meta property="og:description"        content="Con esta ruleta online puedes rifar lo que gustes, solo llena la lista y genera tu ruleta" />
-<meta property="og:image"              content="https://oscaruhp.github.io/Laruleta/img/ruleta.jpg" />
+<meta property='og:url'               content='./' />
+<meta property='og:type'               content='article' />
+<meta property='og:title'              content='La ruleta (Rifa cosas)' />
+<meta property='og:description'        content='Con esta ruleta online puedes rifar lo que gustes, solo llena la lista y genera tu ruleta' />
 
 </head>
 <body>
-    <form id="form1" runat="server">
+<center>
+					<h5> Para Usar Debes Tener 500 APs en tu cuenta: AP Actual <font color='green'>50 APs En Usuario: JVCZXC</font></h5>
+    <form id='form1' runat='server'>
 
     <div>
         <style>
@@ -38,68 +40,54 @@
 
         </style>
 
-        <div class="container-fluid">
+        <div class='container-fluid'>
 
-            <div class="row">
-                <div class="col-3 text-center">  
-				<h1>La Ruleta</h1>
+            <div class='row'>
+                <div class='col-3 text-center'>  
+                   <br />
                     <br />
-                       <a href="http://develoteca.com/" rel="home">
-                          <img width="130px" src="http://develoteca.com/wp-content/themes/sitioweb/img/develoteca.png">
-                    </a>
-                     <br />
                     <br />
-                    <div class="card bg-warning">
-  <div class="card-body">
+                    <div style='display:none;' class='card bg-warning'>
+  <div class='card-body'>
   
-                  <h4 class="card-title">Lista de elementos:</h4>  
+                  <h4 class='card-title'>Lista de elementos:</h4>  
                     
-                    <textarea id="ListaElementos" class="form-control" rows="13">
-Equipo 1
-Equipo 2
-Equipo 3
-Equipo 4
-Equipo 5
-Equipo 6
-Equipo 7
-Equipo 8
-Equipo 9
-Equipo 10
-Equipo 11
-Equipo 12
-Equipo 13
-Equipo 14
-Equipo 15
-Equipo 16
-Equipo 17
-Equipo 18
-Equipo 19
-Equipo 20
-	  </textarea>
+<textarea id='ListaElementos' style='display:none;' class='form-control' rows='13'>
+<?php
+include_once"../../includes/mssql_conex.php";
+// Crear Tabla de Premios por ItemID, Restado Y o Sumado de AP por Ruleta
+$premios=mssql_query('
+SELECT a.ItemName, b.ItemID
+FROM  PS_GameDefs.dbo.Items a
+INNER JOIN PS_GameLog.dbo.ruleta b
+on b.ItemID = a.ItemID'); 
+WHILE ($Items  = mssql_fetch_array ($premios)){
+$print = $Items['0']." ";
+echo $print; 
+echo "</textarea>";
+}
+?>
 <br />
-                    <input type="button" onclick="leerElementos()" class="btn btn-danger btn-lg btn-block" value="Generar Ruleta"/><br />
+                    <input type='button' onclick='leerElementos()' class='btn btn-danger btn-lg btn-block' value='Generar Ruleta'/><br />
       </div></div>
       
                 </div>
-                <div class="col-7 text-center">
+                <div class='col-7 text-center'>
 				<br/>
-                     <input id="bigButton" class="btn-block btn-lg btn btn-success " onclick="objRuleta.startAnimation(); this.disabled=true;" value="Girar" type="button"/>
-                      <div id="canvasContainer" onclick="objRuleta.startAnimation();bigButton.disabled = true;">
-     <canvas id='Ruleta' width='700' height='690'>
-         
-            Canvas not supported, use another browser.
-        </canvas> 
+                     <input id='bigButton' style='display:none;' class='btn-block btn-lg btn btn-success ' onclick='objRuleta.startAnimation(); this.disabled=true;' value='Girar' type='button'/>
+					 <div id='canvasContainer' onclick='objRuleta.startAnimation();bigButton.disabled = true;'>
+     <canvas id='Ruleta' width='700' height='690'></canvas> 
         
             </div>
                 </div>
-                <div class="col-2">
+                <div class='col-2'>
                     				<br/>
-                    <script async src="./js/adsbygoogle.js"></script>
+                    <script async src='./js/adsbygoogle.js'></script>
 <!-- anuncio160_600 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:160px;height:600px"
-     data-ad-client="ca-pub-4331617637495482"
-     data-ad-slot="3603100456"></ins>
+<ins class='adsbygoogle'
+     style='display:inline-block;width:160px;height:600px'
+     data-ad-client='ca-pub-4331617637495482'
+     data-ad-slot='3603100456'></ins>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -120,13 +108,12 @@ Equipo 20
              winningSegment = objRuleta.getIndicatedSegment();
 			 SonidoFinal();
              swal({
-                 title: " ¡ "+winningSegment.text+" !",
+                title: '¡ '+winningSegment.text+' !',
                
-                 imageUrl: "img/Muerte.png",
-                 showCancelButton: true,
-                 confirmButtonColor: "#e74c3c",
-                 confirmButtonText: "Ok,Reiniciar",
-                 cancelButtonText: "Quitar elemento",
+                 imageUrl: 'img/Muerte.png',
+                 confirmButtonColor: '#e74c3c',
+                 confirmButtonText: 'Ok,Reiniciar',
+                 cancelButtonText: 'Quitar elemento',
                  closeOnConfirm: true,
                  closeOnCancel: true
              },
@@ -135,7 +122,7 @@ Equipo 20
              
           } else {
 
-              $('#ListaElementos').val($('#ListaElementos').val().replace(winningSegment.text,""));
+              $('#ListaElementos').val($('#ListaElementos').val().replace(winningSegment.text,''));
               leerElementos();
               
           }
@@ -150,7 +137,7 @@ Equipo 20
 
          function DibujarTriangulo() {
              distnaciaX = 150;
-             distnaciaY = 50;
+             distnaciaY = 1;
              ctx = objRuleta.ctx;
              ctx.strokeStyle = 'navy';
              ctx.fillStyle = '#000000';
@@ -169,7 +156,7 @@ Equipo 20
                objRuleta = new Winwheel({
                  'canvasId': 'Ruleta',
                  'numSegments': ArregloElementos.length,
-                 'outerRadius': 270,
+                 'outerRadius': 330,
                  'innerRadius': 80,
                  'segments':ArregloElementos,
                  'animation':
@@ -188,11 +175,11 @@ Equipo 20
 	  }
         function leerElementos() {
                   txtListaElementos=$('#ListaElementos').val().trim();
-                  var Elementos = txtListaElementos.split('\n');
+                  var Elementos = txtListaElementos.split('$$');
                   var ElementosRuleta= [];
 	          Elementos.forEach(function (Elemento) {
                       if(Elemento){
-                      ElementosRuleta.push({ 'fillStyle': "#" + ((1 << 24) * Math.random() | 0).toString(16), 'text': Elemento });
+                      ElementosRuleta.push({ 'fillStyle': '#' + ((1 << 24) * Math.random() | 0).toString(16), 'text': Elemento });
                   }
                   });
                   DibujarRuleta(ElementosRuleta);
@@ -220,6 +207,8 @@ Equipo 20
 </script>
 
 
-
+<input type='text' name='usuario' placeholder='Ingrese su usuario'><br/>
+<input type='text' name='pw' placeholder='Ingrese su Pass'>
+</center>
 </body>
 </html>
